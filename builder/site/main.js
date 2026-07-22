@@ -3,29 +3,27 @@ const isPhone = matchMedia("(max-width: 40rem)").matches;
 const video = document.getElementById("scene");
 const scrolly = document.querySelector(".scrolly");
 
-/* --- Video: scrub on desktop, quiet loop on phones, poster on reduced motion --- */
+/* --- Video: scroll-scrubbed everywhere, poster on reduced motion --- */
 if (reduceMotion) {
   video.removeAttribute("src"); // poster only
   video.load();
-} else if (isPhone) {
-  video.src = "assets/scene-mobile.mp4";
-  video.autoplay = true;
-  video.loop = true;
-  video.play().catch(() => {});
 } else {
-  let ticking = false;
-  addEventListener("scroll", () => {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(() => {
-      const max = scrolly.offsetHeight - innerHeight;
-      const p = Math.min(Math.max(scrollY / max, 0), 1);
-      if (video.readyState >= 2 && video.duration) {
-        video.currentTime = p * video.duration;
+  if (isPhone) video.src = "assets/scene-mobile.mp4"; // same film, smaller encode
+  // Continuous rAF loop easing currentTime toward the scroll target:
+  // smoother than seeking on scroll events, which fire in coarse bursts
+  // (worst during iOS momentum scrolling).
+  const tick = () => {
+    const max = scrolly.offsetHeight - innerHeight;
+    const p = Math.min(Math.max(scrollY / max, 0), 1);
+    if (video.readyState >= 1 && video.duration) {
+      const diff = p * video.duration - video.currentTime;
+      if (Math.abs(diff) > 0.01 && !video.seeking) {
+        video.currentTime += diff * 0.15;
       }
-      ticking = false;
-    });
-  }, { passive: true });
+    }
+    requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
 }
 
 /* --- Panel entrances + nav goes solid over paper sections --- */
