@@ -1,0 +1,58 @@
+/* Hallmark · genre: editorial · macrostructure: Narrative Workflow · theme: custom (brand: Hartwood)
+ * paper: light (limewash) · display: high-contrast-serif (Fraunces) · accent: warm (oak amber)
+ * nav: N9 edge-aligned minimal · footer: Ft1 mast-headed · enrichment: chaptered scroll video
+ * brand source: ../brand.md (hex values converted to OKLCH)
+ */
+:root {
+  /* Colour — Hartwood brand */
+  --color-paper: oklch(96% 0.012 90);        /* Limewash #F6F2E9 */
+  --color-surface: oklch(99.5% 0.002 90);    /* Plaster white, warmed off #fff */
+  --color-ink: oklch(24% 0.012 100);         /* Charcoal #26251F */
+  --color-green: oklch(31% 0.045 163);       /* Hartwood Green #1E3A2F */
+  --color-green-deep: oklch(25% 0.04 163);
+  --color-accent: oklch(65% 0.125 70);       /* Oak Amber #C9862B */
+  --color-muted: oklch(60% 0.02 160);        /* Sage Grey #7C8A7E */
+  --color-on-green: oklch(96% 0.012 90);     /* limewash text on green */
+  --color-rule: oklch(85% 0.015 120);
+  --color-focus: oklch(55% 0.13 70);
+  --color-accent-hover: oklch(70% 0.13 70);
+  --color-error: oklch(45% 0.17 29);
+  --color-error-border: oklch(55% 0.19 29);
+  --color-scrim: oklch(20% 0.03 163 / 0.42);
+  --color-scrim-faint: oklch(20% 0.03 163 / 0.08);
+  --color-scrim-strong: oklch(25% 0.04 163 / 0.88);
+  --color-scrim-mid: oklch(25% 0.04 163 / 0.55);
+
+  /* Type */
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Inter", system-ui, sans-serif;
+
+  --text-display: clamp(2.6rem, 6.5vw, 5rem);
+  --text-display-s: clamp(2rem, 4.5vw, 3.25rem);
+  --text-xl: clamp(1.35rem, 2.2vw, 1.75rem);
+  --text-lg: 1.125rem;
+  --text-md: 1rem;
+  --text-sm: 0.875rem;
+  --text-xs: 0.75rem;
+
+  /* Space — 4pt scale */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.5rem;
+  --space-2xl: 4rem;
+  --space-3xl: 7rem;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 150ms;
+  --dur-med: 350ms;
+  --dur-slow: 700ms;
+
+  /* Rules & radii */
+  --rule-hairline: 1px solid var(--color-rule);
+  --radius-sm: 2px;
+}
