@@ -21,6 +21,11 @@ export const metadata: Metadata = {
   description:
     'A legacy that lasts generations. Bespoke will writing and estate planning across Kent, London and the South East with Steve Baker — protecting what matters most to you.',
   generator: 'v0.app',
+  // Fictional brand on a Northbytes host: crawlable noindex on every exported
+  // page so the demo never competes in search with the real site. follow stays
+  // on so crawlers reach the rest of the demo. Never pair with a robots.txt
+  // disallow - a blocked page can't be read as noindex.
+  robots: { index: false, follow: true },
   icons: {
     icon: [
       {

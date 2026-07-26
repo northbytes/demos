@@ -33,6 +33,11 @@ export const metadata: Metadata = {
   title: "PRESSMARK — Custom printed clothing and large format, made in Kent",
   description:
     "Screen printing, DTG, embroidery and large-format print in Medway. Upload your artwork, approve the proof the same working day, see the price before you commit.",
+  // This is a fictional brand on a Northbytes host. It must never compete in
+  // search with the real site, so every exported page carries a crawlable
+  // noindex. follow stays on so crawlers still reach the rest of the demo and
+  // see its noindex too. Do not pair this with a robots.txt disallow.
+  robots: { index: false, follow: true },
 };
 
 export default function RootLayout({

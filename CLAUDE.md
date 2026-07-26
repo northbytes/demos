@@ -163,10 +163,18 @@ is required — without it the glob matches nothing and the grid renders empty.
 - **Never delete `.nojekyll`.** Without it Pages runs Jekyll, which ignores
   files and directories starting with `_` — that would break the Next export
   (`site/_next/…`) immediately.
-- **Demos are noindexed, not private.** nginx sends `X-Robots-Tag: noindex` for
-  `/demos/*/site/`, and they're crawlable so the noindex is actually read. The
-  files are also directly reachable at `northbytes.github.io/demos/…` — this is
-  a public repo, so never put anything real (client data, keys) in a demo.
+- **Demos are noindexed, not private.** Two layers, and both are needed:
+  nginx sends `X-Robots-Tag: noindex` for `/demos/*/site/`, and every page in
+  `site/` carries `<meta name="robots" content="noindex, follow">` in its head.
+  The header alone only covers northbytes.org — the same files are served
+  directly at `northbytes.github.io/demos/…`, where nothing of ours sets
+  headers, so without the meta tag Google can index the demo on that host. The
+  meta travels with the file, so it covers both. **New demo → make sure its
+  pages carry it**: hand-written sites get the tag in `<head>`; Next exports get
+  `robots: { index: false, follow: true }` in the root layout's `metadata`.
+  Never add a robots.txt disallow — a page that can't be crawled can't be read
+  as noindex. This is also a public repo, so never put anything real (client
+  data, keys) in a demo.
 - **GitHub Pages is in the serving path.** If Pages has an outage, demos fail
   while the rest of northbytes.org is fine. Check
   <https://www.githubstatus.com/api/v2/incidents/unresolved.json> before
