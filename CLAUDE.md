@@ -43,7 +43,9 @@ index.json       # list of demo dirs
 `"hidden": true` keeps the card off the public grid. **It is not security** —
 the demo stays served and any direct link works. That's deliberate: it's for
 sending a client their demo before it's public. The /demos page has an unlock
-strip at the bottom (passphrase `bytefield`) to reveal hidden cards.
+strip at the bottom (passphrase `password`) to reveal hidden cards. The
+passphrase lives in `UNLOCK_PASSWORD` in main-website's `Demos.tsx` — check
+there rather than trusting this line, it has drifted before.
 
 `index.json` lists the demo directory names. Keep it in sync when adding or
 removing a demo.
