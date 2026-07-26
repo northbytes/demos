@@ -1,0 +1,8 @@
+{
+  "title": "PRESSMARK",
+  "description": "Multi-page site for a Kent garment printer, built as a working shop rather than a brochure — a live price ladder that moves as you configure a run, an artwork preflight that tells you what's wrong with your file, and a customer account tracking each job across the press floor.",
+  "industry": "Printing",
+  "image": "site/poster.jpg",
+  "path": "site/index.html",
+  "hidden": true
+}

@@ -1,0 +1,732 @@
+/* Hallmark · macrostructure: Workbench (spec sheet) · tone: utilitarian / trade-literate
+ * theme: locked-system (PRESSMARK house spec supplied by design lead — not a catalog rotation)
+ * paper: #E4E8E5 mid-light · display: grotesk-variable (Bricolage) · accent: process magenta #E6007E
+ * enrichment: none — halftone + registration devices only
+ * pre-emit critique: P5 H5 E4 S5 R5 V4 C4
+ */
+
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@config "../../tailwind.config.ts";
+
+/* ─── Tokens ─────────────────────────────────────────────────────────────── */
+
+:root {
+  --press: #0f2e38; /* deep emulsion teal — dark ground, hero, footer, bands */
+  --press-2: #16414e; /* lifted teal — cards and inset panels on dark ground */
+  --wash: #e4e8e5; /* cool grey-green — the light ground */
+  --paper: #f7f9f7; /* near-white — cards and input surfaces on light ground */
+  --ink: #14181b; /* body text on light ground */
+  --magenta: #e6007e; /* process magenta — the accent, rationed */
+  --amber: #f2a900; /* safelight amber — hover / attention only, never a fill */
+  --cyan: #00a3d9; /* process cyan — hero registration signature only */
+  --rule: rgba(20, 24, 27, 0.14);
+  --rule-dk: rgba(255, 255, 255, 0.16);
+
+  /* Type scale */
+  --text-display: clamp(3.5rem, 9vw, 8.5rem);
+  --text-section: clamp(2rem, 4vw, 3.5rem);
+  --text-sub: 1.375rem;
+  --text-body: 1rem;
+  --text-small: 0.875rem;
+  --text-utility: 0.75rem;
+
+  /* Space scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+  --space-32: 128px;
+
+  /* Structure */
+  --shell: 1440px;
+  --gutter: 16px;
+  --radius: 2px;
+
+  /* Motion — one curve, four durations */
+  --ease-squeegee: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-squeegee: 420ms;
+  --dur-dissolve: 600ms;
+  --dur-wipe: 180ms;
+  --dur-type: 300ms;
+  --dur-reduced: 120ms;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --gutter: 24px;
+  }
+}
+
+/* ─── Base ───────────────────────────────────────────────────────────────── */
+
+@layer base {
+  html,
+  body {
+    overflow-x: clip;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--wash);
+    color: var(--ink);
+    font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+    font-size: var(--text-body);
+    line-height: 1.6;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display), ui-sans-serif, sans-serif;
+    font-style: normal;
+    overflow-wrap: anywhere;
+    min-width: 0;
+    text-wrap: balance;
+  }
+
+  ::selection {
+    background: var(--magenta);
+    color: var(--paper);
+  }
+
+  :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
+
+  .on-dark
+    :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+    outline-color: var(--paper);
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .on-dark hr {
+    border-top-color: var(--rule-dk);
+  }
+}
+
+/* ─── Type roles ─────────────────────────────────────────────────────────── */
+
+@layer components {
+  .t-display {
+    font-family: var(--font-display), sans-serif;
+    font-size: var(--text-display);
+    font-weight: 800;
+    line-height: 0.88;
+    letter-spacing: -0.03em;
+    font-variation-settings: "opsz" 48, "wdth" 100;
+  }
+
+  .t-section {
+    font-family: var(--font-display), sans-serif;
+    font-size: var(--text-section);
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    font-variation-settings: "opsz" 32, "wdth" 100;
+  }
+
+  .t-sub {
+    font-family: var(--font-display), sans-serif;
+    font-size: var(--text-sub);
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+
+  .t-body {
+    font-size: var(--text-body);
+    line-height: 1.6;
+  }
+
+  .t-small {
+    font-size: var(--text-small);
+    line-height: 1.5;
+  }
+
+  /* The thing that makes it read as a print shop rather than a boutique. */
+  .t-utility {
+    font-family: var(--font-utility), ui-monospace, monospace;
+    font-size: var(--text-utility);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  /* Mono, but sentence case — the plain-English note next to a spec label.
+     Warnings and empty states read as instructions, not as headings. */
+  .t-note {
+    font-family: var(--font-utility), ui-monospace, monospace;
+    font-size: 0.6875rem;
+    font-weight: 400;
+    line-height: 1.7;
+    letter-spacing: 0.04em;
+  }
+
+  /* Size-run boxes carry their own hairline; native spinners fight it. */
+  .qty-box {
+    appearance: textfield;
+    -moz-appearance: textfield;
+  }
+
+  .qty-box::-webkit-outer-spin-button,
+  .qty-box::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* ─── Grid ─────────────────────────────────────────────────────────────── */
+
+  .shell {
+    width: 100%;
+    max-width: var(--shell);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+
+  .grid-12 {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: var(--gutter);
+  }
+
+  /* ─── Link ─────────────────────────────────────────────────────────────── */
+
+  .link {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    padding-bottom: 1px;
+    transition: border-color var(--dur-wipe) var(--ease-squeegee);
+  }
+
+  .link:hover {
+    border-bottom-color: var(--amber);
+  }
+
+  /* ─── Button wipe ──────────────────────────────────────────────────────── */
+
+  .btn {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    border: 1px solid transparent;
+  }
+
+  .btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--btn-wipe, transparent);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform var(--dur-wipe) var(--ease-squeegee);
+  }
+
+  .btn:hover:not(:disabled)::before,
+  .btn.is-hover::before {
+    transform: scaleX(1);
+  }
+
+  .btn-primary {
+    background: var(--magenta);
+    color: var(--paper);
+    --btn-wipe: var(--ink);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--ink);
+    border-color: var(--rule);
+    --btn-wipe: var(--ink);
+    transition: color var(--dur-wipe) var(--ease-squeegee),
+      border-color var(--dur-wipe) var(--ease-squeegee);
+  }
+
+  .btn-secondary:hover:not(:disabled),
+  .btn-secondary.is-hover {
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--ink);
+    --btn-wipe: rgba(20, 24, 27, 0.08);
+  }
+
+  .on-dark .btn-primary {
+    --btn-wipe: var(--paper);
+  }
+
+  .on-dark .btn-primary:hover:not(:disabled),
+  .on-dark .btn-primary.is-hover {
+    color: var(--ink);
+  }
+
+  .on-dark .btn-secondary {
+    color: var(--wash);
+    border-color: var(--rule-dk);
+    --btn-wipe: var(--paper);
+  }
+
+  .on-dark .btn-secondary:hover:not(:disabled),
+  .on-dark .btn-secondary.is-hover {
+    color: var(--ink);
+    border-color: var(--paper);
+  }
+
+  .on-dark .btn-ghost {
+    color: var(--wash);
+    --btn-wipe: rgba(255, 255, 255, 0.1);
+  }
+
+  /* Pressed = the wipe lands instantly. No scaling, no lifting. */
+  .btn:active:not(:disabled)::before {
+    transform: scaleX(1);
+    transition-duration: 0ms;
+  }
+
+  .btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  .btn[data-loading="true"] {
+    border-bottom: 2px solid var(--amber);
+  }
+
+  /* ─── Fields — input and select trigger share one surface ──────────────── */
+
+  .field {
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 16px;
+    background: var(--paper);
+    color: var(--ink);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    font-size: var(--text-body);
+    line-height: 1.5;
+    transition: border-color var(--dur-wipe) var(--ease-squeegee);
+  }
+
+  .field::placeholder {
+    color: rgba(20, 24, 27, 0.42);
+  }
+
+  .field:hover:not(:disabled):not([data-disabled]) {
+    border-color: rgba(20, 24, 27, 0.32);
+  }
+
+  .field:disabled,
+  .field[data-disabled] {
+    background: transparent;
+    color: rgba(20, 24, 27, 0.4);
+    border-style: dashed;
+    cursor: not-allowed;
+  }
+
+  /* Attention, not decoration — amber hairline inside the field. */
+  .field[aria-invalid="true"] {
+    border-color: var(--ink);
+    box-shadow: inset 0 -2px 0 0 var(--amber);
+  }
+
+  .on-dark .field {
+    background: var(--press-2);
+    color: var(--wash);
+    border-color: var(--rule-dk);
+  }
+
+  .on-dark .field::placeholder {
+    color: rgba(247, 249, 247, 0.45);
+  }
+
+  .on-dark .field:hover:not(:disabled):not([data-disabled]) {
+    border-color: rgba(255, 255, 255, 0.34);
+  }
+
+  .on-dark .field:disabled,
+  .on-dark .field[data-disabled] {
+    background: transparent;
+    color: rgba(247, 249, 247, 0.4);
+  }
+
+  .on-dark .field[aria-invalid="true"] {
+    border-color: var(--paper);
+  }
+
+  /* ─── Ink chips — the only circles in the system ───────────────────────── */
+
+  .ink-chip {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    border-radius: 9999px;
+    border: 1px solid var(--rule);
+    transition: box-shadow var(--dur-wipe) var(--ease-squeegee);
+  }
+
+  .on-dark .ink-chip {
+    border-color: var(--rule-dk);
+  }
+
+  .ink-chip:hover {
+    box-shadow: 0 0 0 2px var(--amber);
+  }
+
+  .ink-chip[aria-pressed="true"] {
+    box-shadow: 0 0 0 2px var(--magenta);
+  }
+
+  /* ─── Cut marks — 16px corner brackets on cards, on hover ──────────────── */
+
+  .cut-marks {
+    position: relative;
+  }
+
+  .cut-marks::before,
+  .cut-marks::after {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    opacity: 0;
+    transition: opacity var(--dur-wipe) var(--ease-squeegee);
+    pointer-events: none;
+    border-color: var(--ink);
+  }
+
+  .cut-marks::before {
+    top: -5px;
+    left: -5px;
+    border-top: 1px solid;
+    border-left: 1px solid;
+  }
+
+  .cut-marks::after {
+    bottom: -5px;
+    right: -5px;
+    border-bottom: 1px solid;
+    border-right: 1px solid;
+  }
+
+  .cut-marks:hover::before,
+  .cut-marks:hover::after,
+  .cut-marks:focus-within::before,
+  .cut-marks:focus-within::after {
+    opacity: 1;
+  }
+
+  .on-dark .cut-marks::before,
+  .on-dark .cut-marks::after {
+    border-color: var(--paper);
+  }
+
+  /* ─── Squeegee wipe — the signature transition ─────────────────────────── */
+
+  /* Unarmed (no JS) = no mask at all, so children always render. */
+  .squeegee[data-armed] {
+    --squeegee-mask: linear-gradient(108deg, transparent 0 38%, #000 62% 100%);
+    -webkit-mask-image: var(--squeegee-mask);
+    mask-image: var(--squeegee-mask);
+    -webkit-mask-size: 320% 100%;
+    mask-size: 320% 100%;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: 0% 0;
+    mask-position: 0% 0;
+    transition:
+      -webkit-mask-position var(--dur-squeegee) var(--ease-squeegee),
+      mask-position var(--dur-squeegee) var(--ease-squeegee);
+  }
+
+  .squeegee[data-armed][data-in] {
+    -webkit-mask-position: 100% 0;
+    mask-position: 100% 0;
+  }
+
+  /* ─── Halftone dissolve — images resolve from a coarse dot field ───────── */
+
+  .halftone-dissolve {
+    animation: halftone-dissolve var(--dur-dissolve) var(--ease-squeegee) both;
+  }
+
+  @keyframes halftone-dissolve {
+    from {
+      -webkit-mask-image: radial-gradient(circle, #000 18%, transparent 20%);
+      mask-image: radial-gradient(circle, #000 18%, transparent 20%);
+      -webkit-mask-size: 9px 9px;
+      mask-size: 9px 9px;
+      filter: contrast(1.45) saturate(0.7);
+    }
+    to {
+      -webkit-mask-image: radial-gradient(circle, #000 100%, transparent 102%);
+      mask-image: radial-gradient(circle, #000 100%, transparent 102%);
+      -webkit-mask-size: 9px 9px;
+      mask-size: 9px 9px;
+      filter: contrast(1) saturate(1);
+    }
+  }
+
+  /* ─── Grain — photography only, so garments sit in the world ───────────── */
+
+  .grain {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ─── Utility label type-in ────────────────────────────────────────────── */
+
+  .type-in {
+    display: inline-block;
+    white-space: pre;
+  }
+
+  .type-in[data-typing="pending"] {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  .type-in[data-typing="run"] {
+    animation: type-in var(--dur-type) steps(var(--chars, 24), end) both;
+  }
+
+  @keyframes type-in {
+    from {
+      clip-path: inset(0 100% 0 0);
+    }
+    to {
+      clip-path: inset(0 -0.4em 0 0);
+    }
+  }
+
+  /* ─── Nav link — 2px amber underline wipes in from the left ─────────────── */
+
+  .nav-link {
+    position: relative;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    bottom: -6px;
+    height: 2px;
+    background: var(--amber);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform var(--dur-wipe) var(--ease-squeegee);
+  }
+
+  .nav-link:hover::after,
+  .nav-link:focus-visible::after {
+    transform: scaleX(1);
+  }
+
+  /* Chips are the one control the eye tracks by colour, so focus is amber. */
+  .ink-chip:focus-visible {
+    outline: 2px solid var(--amber);
+    outline-offset: 2px;
+  }
+
+  /* ─── Live stage — the one marker on the timeline that's moving ─────────
+     Barely there on purpose: it says "this is where the job is standing", it
+     doesn't ask to be looked at. Opacity only, so it can't shift the track. */
+
+  .reg-pulse {
+    animation: reg-pulse 2400ms var(--ease-squeegee) infinite;
+  }
+
+  @keyframes reg-pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.55;
+    }
+  }
+
+  /* ─── Snap rail — the scrollbar stays visible, it's part of the affordance */
+
+  .rail {
+    scrollbar-width: thin;
+    scrollbar-color: var(--ink) var(--rule);
+  }
+
+  .rail::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .rail::-webkit-scrollbar-track {
+    background: var(--rule);
+  }
+
+  .rail::-webkit-scrollbar-thumb {
+    background: var(--ink);
+  }
+
+  /* ─── Quantity slider — a squeegee blade on a hairline track ────────────── */
+
+  .qty-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 24px;
+    background: transparent;
+    outline: none;
+  }
+
+  .qty-slider::-webkit-slider-runnable-track {
+    height: 1px;
+    background: var(--rule-dk);
+  }
+
+  .qty-slider::-moz-range-track {
+    height: 1px;
+    background: var(--rule-dk);
+  }
+
+  .qty-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px;
+    height: 24px;
+    margin-top: -12px;
+    background: var(--magenta);
+    border: 0;
+    border-radius: var(--radius);
+    cursor: ew-resize;
+  }
+
+  .qty-slider::-moz-range-thumb {
+    width: 12px;
+    height: 24px;
+    background: var(--magenta);
+    border: 0;
+    border-radius: var(--radius);
+    cursor: ew-resize;
+  }
+
+  .qty-slider:focus-visible {
+    outline: 2px solid var(--amber);
+    outline-offset: 4px;
+  }
+
+  /* ─── Ruled field — hairline underline only, for inline forms on dark ──── */
+
+  .field-line {
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 0;
+    background: transparent;
+    color: var(--paper);
+    border: 0;
+    border-bottom: 1px solid var(--rule-dk);
+    border-radius: 0;
+    font-size: var(--text-body);
+    line-height: 1.5;
+    transition: border-color var(--dur-wipe) var(--ease-squeegee);
+  }
+
+  .field-line::placeholder {
+    color: rgba(247, 249, 247, 0.45);
+  }
+
+  .field-line:hover,
+  .field-line:focus {
+    border-bottom-color: var(--paper);
+  }
+
+  select.field-line {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  select.field-line option {
+    color: var(--ink);
+  }
+}
+
+/* ─── Reduced motion — everything collapses to a 120ms opacity fade ──────── */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: var(--dur-reduced) !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: var(--dur-reduced) !important;
+    transition-timing-function: linear !important;
+    scroll-behavior: auto !important;
+  }
+
+  .btn::before {
+    transform: scaleX(1);
+    opacity: 0;
+    transition-property: opacity;
+  }
+
+  .btn:hover:not(:disabled)::before,
+  .btn.is-hover::before {
+    opacity: 1;
+  }
+
+  .squeegee[data-armed] {
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+    opacity: 0;
+    transition-property: opacity;
+  }
+
+  .squeegee[data-armed][data-in] {
+    opacity: 1;
+  }
+
+  .halftone-dissolve {
+    animation: none;
+  }
+
+  /* The live stage holds still — the fill colour already carries the state. */
+  .reg-pulse {
+    animation: none !important;
+  }
+
+  /* The typing effect is skipped entirely. */
+  .type-in[data-typing] {
+    animation: none !important;
+    clip-path: none !important;
+  }
+}
