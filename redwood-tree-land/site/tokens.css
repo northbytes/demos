@@ -1,0 +1,70 @@
+/* Redwood Tree & Land Services — design tokens
+ * macrostructure: chaptered scrollytelling · genre: editorial · brand: Redwood
+ * vibe: "wet Essex woodland, sawdust and rope, red mark on near-black green"
+ * paper oklch(15% 0.014 150) dark-green · accent oklch(57% 0.238 28) signal red
+ * axes: dark / optical-serif / cool-green  (Delux = dark / grotesk / warm-amber,
+ *       so this sits on a different display + accent band on purpose)
+ * brand source: ../brand.md — every colour traced to Redwood's own stylesheet
+ */
+:root {
+  /* Colour */
+  --color-paper: oklch(16.5% 0.014 150);        /* Heartwood #0C120E */
+  --color-paper-deep: oklch(11% 0.012 150);     /* under the fold, scrims */
+  --color-paper-lift: oklch(21.5% 0.014 150);   /* Bark #161F18 — cards */
+  --color-paper-lift-2: oklch(27% 0.015 150);   /* hover surface */
+  --color-light: oklch(95% 0.008 85);           /* Sapwood #F2EFE8 */
+  --color-light-dim: oklch(80% 0.010 100);      /* secondary text on dark */
+  --color-ink: oklch(19% 0.012 150);            /* text on light sections */
+  --color-accent: oklch(57% 0.238 28);          /* Redwood #EE0C19 */
+  --color-accent-hover: oklch(64% 0.222 30);
+  --color-accent-deep: oklch(46% 0.195 28);     /* accent text on light — AA */
+  --color-muted: oklch(66% 0.038 135);          /* Moss — captions, meta */
+  --color-timber: oklch(72% 0.075 65);          /* cut ends, log store */
+  --color-rule: oklch(27% 0.014 150);
+  --color-rule-strong: oklch(38% 0.016 150);
+  --color-focus: oklch(75% 0.16 30);
+  --color-error: oklch(64% 0.19 27);
+  --color-success: oklch(71% 0.13 150);
+  --color-scrim: oklch(11% 0.012 150 / 0.78);
+  --color-scrim-soft: oklch(11% 0.012 150 / 0.40);
+
+  /* Type */
+  --font-display: Fraunces, "Iowan Old Style", Georgia, serif;
+  --font-body: Inter, system-ui, -apple-system, sans-serif;
+
+  /* Capped at 4.75rem: at 5.75 the hero headline ran to four lines and pushed
+     the ARB Approved strip below the fold, which is the one credential worth
+     leading with. */
+  --text-display: clamp(2.4rem, 5.4vw, 4.75rem);
+  --text-display-s: clamp(1.9rem, 4.4vw, 3.25rem);
+  --text-xl: clamp(1.25rem, 2vw, 1.6rem);
+  --text-lg: 1.125rem;
+  --text-md: 1rem;
+  --text-sm: 0.875rem;
+  --text-xs: 0.75rem;
+
+  /* Space — 4pt scale */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.5rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6.5rem;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 120ms;
+  --dur-mid: 240ms;
+  --dur-slow: 460ms;
+
+  /* Line & radius — soft-square, a shade friendlier than Delux's hard slab */
+  --rule: 1px solid var(--color-rule);
+  --rule-strong: 2px solid var(--color-rule-strong);
+  --radius: 3px;
+  --radius-lg: 6px;
+
+  --measure: 64ch;
+  --container: 76rem;
+}
